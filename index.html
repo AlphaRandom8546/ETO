@@ -143,7 +143,7 @@
 <body>
     <div class="textBox">
         <h1 id="quotationText">主与我们<span class="Focus" id="focusText">同在</span></h1>
-        <h2 id="countdownLink">距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 天 <span class="hrefa">¶</span></h2>
+        <h2 id="countdownLink" title="跳转Github仓库">距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 天 <span class="hrefa">¶</span></h2>
     </div>
 
     <script>
@@ -159,7 +159,10 @@
             },{
                 text: "“脱水！”",
                 focus: "脱水"
-            }
+            },{
+                text: "“主与我们同在”",
+                focus: "同在"
+            },
         ];
         
         // 随机选择一条语录
@@ -222,7 +225,7 @@
         
         // 添加点击跳转功能
         document.getElementById('countdownLink').addEventListener('click', function() {
-            window.location.href = 'http://threebody.com.cn/';
+            window.location.href = 'https://github.com/AlphaRandom8546/ETO';
         });
         
         // MemSet
