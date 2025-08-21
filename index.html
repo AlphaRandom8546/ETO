@@ -138,7 +138,7 @@
 <body>
     <div class="textBox">
         <h1 id="quotationText">主与我们<span class="Focus" id="focusText">同在</span></h1>
-        <h2 id="countdownLink">距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 小时 <span class="hrefa">¶</span></h2>
+        <h2 id="countdownLink">距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 天 <span class="hrefa">¶</span></h2>
     </div>
 
     <script>
@@ -207,8 +207,8 @@
             // 计算剩余时间（目标时间 - 当前时间）
             const remainingSeconds = THON - THGO;
             
-            // 转换为小时
-            const remainingHours = Math.floor(remainingSeconds / 3600);
+            // 转换为天
+            const remainingHours = Math.floor(remainingSeconds / 3600 / 24);
             
             // 格式化数字显示
             const formattedTime = remainingHours.toLocaleString('zh-CN');
