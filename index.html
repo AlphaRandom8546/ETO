@@ -84,7 +84,12 @@
         
         /*默认隐藏¶符号*/
         .hrefa {
-            color: rgba(0, 0, 0, .6);
+            color: #fff;
+            transition: color 0.3s ease; /* 添加颜色过渡效果 */
+        }
+        .hrefa::selection{
+            color: black;
+            background-color: black;
         }
         
         /* 鼠标悬停时显示¶符号并改变h2颜色 */
