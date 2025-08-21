@@ -142,7 +142,8 @@
     </div>
 
     <script>
-        const THGO = 378662400;
+        const THON = 13022511072; // 到达
+        
         const quotations = [
             {
                 text: "“主与我们同在”",
@@ -202,8 +203,14 @@
         }
         
         function updateCountdown() {
-            const currentTimestamp = Math.floor(Date.now() / 1000);
-            const remainingHours = Math.floor((currentTimestamp - THGO) / 3600);
+            const THGO = 399730272; // 出发
+            // 计算剩余时间（目标时间 - 当前时间）
+            const remainingSeconds = THON - THGO;
+            
+            // 转换为小时
+            const remainingHours = Math.floor(remainingSeconds / 3600);
+            
+            // 格式化数字显示
             const formattedTime = remainingHours.toLocaleString('zh-CN');
             document.getElementById('countDown').textContent = formattedTime;
         }
