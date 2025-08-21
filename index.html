@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>地球三体组织</title>
+    <link rel="icon" href=".\eto.png">
+
+    <style>
+        /*@font-face {
+            font-family: 刻明朝;
+            src: url(./font2.ttf);
+        }*/
+
+        * {
+            overflow: hidden;
+            caret-color: transparent;
+        }
+
+        body {
+            background-color: #fcfaf1;
+            margin: 0px;
+            padding: 0px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Focus {
+            font-family: 新宋体;
+            color: #fcfaf1;
+            background-color: black;
+        }
+        .NumFocus {
+            font-family: consolas;
+            color: #fcfaf1;
+            background-color: black;
+        }
+
+        .Focus::selection{
+            color: darkgreen;
+            background-color: #fcfaf1;
+        }
+        .NumFocus::selection{
+            color: purple;
+            background-color: #fcfaf1;
+        }
+
+        .textBox {
+            display: grid;
+            place-items: center;
+        }
+        h1 {
+            font-size: 16rem;
+            font-family: 新宋体;
+            text-align: center;
+            color: black;
+            margin-bottom: 0.5rem;
+        }
+        h1::selection{
+            color: #fcfaf1;
+            background-color: black;
+        }
+        h2 {
+            font-size: 4rem;
+            font-family: 新宋体;
+            text-align: center;
+            color: black;
+            margin-top: 0.5rem;
+        }
+        h2::selection{
+            color: #fcfaf1;
+            background-color: black;
+        }
+
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 12rem;
+            }
+            h2 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 8rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 5rem;
+            }
+            h2 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="textBox">
+        <h1 id="quotationText">主与我们<span class="Focus" id="focusText">同在</span></h1>
+        <h2>距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 小时</h2>
+    </div>
+
+    <script>
+        const THGO = 378662400;
+        const quotations = [
+            {
+                text: "主与我们同在",
+                focus: "同在"
+            },{
+                text: "保佑我主脱离苦海",
+                focus: "脱离苦海"
+            }
+        ];
+        
+        // 随机选择一条语录
+        function getRandomQuotation() {
+            const randomIndex = Math.floor(Math.random() * quotations.length);
+            return quotations[randomIndex];
+        }
+        
+        // 更新语录显示
+        function updateQuotation() {
+            const quotation = getRandomQuotation();
+            const quotationElement = document.getElementById('quotationText');
+            const focusElement = document.getElementById('focusText');
+            
+            // 清空原有内容
+            quotationElement.innerHTML = '';
+            
+            // 处理聚焦文本
+            const text = quotation.text;
+            const focusText = quotation.focus;
+            
+            if (text.includes(focusText)) {
+                // 分割文本并创建带样式的部分
+                const parts = text.split(focusText);
+                
+                // 添加聚焦前的文本
+                if (parts[0]) {
+                    quotationElement.appendChild(document.createTextNode(parts[0]));
+                }
+                
+                // 添加聚焦文本
+                const focusSpan = document.createElement('span');
+                focusSpan.className = 'Focus';
+                focusSpan.textContent = focusText;
+                focusSpan.id = 'focusText';
+                quotationElement.appendChild(focusSpan);
+                
+                // 添加聚焦后的文本
+                if (parts[1]) {
+                    quotationElement.appendChild(document.createTextNode(parts[1]));
+                }
+            } else {
+                // 如果没有找到聚焦文本，显示全部文本
+                quotationElement.textContent = text;
+            }
+        }
+        
+        function updateCountdown() {
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            const remainingHours = Math.floor((currentTimestamp - THGO) / 3600);
+            const formattedTime = remainingHours.toLocaleString('zh-CN');
+            document.getElementById('countDown').textContent = formattedTime;
+        }
+        
+        // MemSet
+        updateQuotation();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
