@@ -42,9 +42,15 @@
             color: darkgreen;
             background-color: #fcfaf1;
         }
+        .NumFocus {
+            transition: background-color 0.3s ease;
+        }
         .NumFocus::selection{
             color: purple;
             background-color: #fcfaf1;
+        }
+        .NumFocus:hover{
+            background-color: #196392;
         }
 
         .textBox {
@@ -68,10 +74,37 @@
             text-align: center;
             color: black;
             margin-top: 0.5rem;
+            cursor: pointer; /* 添加指针光标 */
+            transition: color 0.3s ease; /* 添加颜色过渡效果 */
         }
         h2::selection{
             color: #fcfaf1;
             background-color: black;
+        }
+        
+        /*默认隐藏¶符号*/
+        .hrefa {
+            color: rgba(0, 0, 0, .6);
+        }
+        
+        /* 鼠标悬停时显示¶符号并改变h2颜色 */
+        h2:hover {
+            color: #196392;
+            text-decoration: underline;
+        }
+        
+        h2:hover .hrefa {
+            display: inline;
+            color: #196392;
+            text-decoration: underline;
+        }
+        
+        /* 确保NumFocus的黑色背景在悬停时不被覆盖 */
+        h2:hover .NumFocus {
+            color: #fcfaf1 !important;
+            /*color: purple !important;*/
+            background-color: #196392 !important;
+            text-decoration: none !important;
         }
 
         @media (max-width: 1200px) {
@@ -105,20 +138,20 @@
 <body>
     <div class="textBox">
         <h1 id="quotationText">主与我们<span class="Focus" id="focusText">同在</span></h1>
-        <h2>距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 小时</h2>
+        <h2 id="countdownLink">距离三体舰队到达地球还有 <span class="NumFocus" id="countDown">{Hours}</span> 小时 <span class="hrefa">¶</span></h2>
     </div>
 
     <script>
         const THGO = 378662400;
         const quotations = [
             {
-                text: "主与我们同在",
+                text: "“主与我们同在”",
                 focus: "同在"
             },{
-                text: "浸泡！",
+                text: "“浸泡！”",
                 focus: "浸泡"
             },{
-                text: "脱水！",
+                text: "“脱水！”",
                 focus: "脱水"
             }
         ];
@@ -174,6 +207,11 @@
             const formattedTime = remainingHours.toLocaleString('zh-CN');
             document.getElementById('countDown').textContent = formattedTime;
         }
+        
+        // 添加点击跳转功能
+        document.getElementById('countdownLink').addEventListener('click', function() {
+            window.location.href = 'http://threebody.com.cn/';
+        });
         
         // MemSet
         updateQuotation();
